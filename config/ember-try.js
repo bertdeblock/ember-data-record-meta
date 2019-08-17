@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-const getChannelURL = require('ember-source-channel-url');
+const getChannelURL = require('ember-source-channel-url')
 
-module.exports = async function() {
+module.exports = async function () {
   return {
     useYarn: true,
     scenarios: [
@@ -70,5 +70,5 @@ module.exports = async function() {
         }
       }
     ]
-  };
-};
+  }
+}
