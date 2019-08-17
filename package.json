@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "ember build",
+    "format:js": "prettier-standard './**/*.js' && eslint --fix './**/*.js'",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
+    "babel-eslint": "^10.0.2",
     "broccoli-asset-rev": "^3.0.0",
     "ember-cli": "~3.11.0",
     "ember-cli-dependency-checker": "^3.1.0",
@@ -47,9 +49,16 @@
     "ember-source": "~3.11.1",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.0.0",
+    "eslint-config-standard": "^13.0.1",
     "eslint-plugin-ember": "^6.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^3.0.3",
+    "lint-staged": "^9.2.1",
     "loader.js": "^4.7.0",
+    "prettier-standard": "^9.1.1",
     "qunit-dom": "^0.8.4"
   },
   "engines": {
@@ -57,5 +66,17 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier-standard",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
