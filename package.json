@@ -1,13 +1,16 @@
 {
   "name": "ember-data-record-meta",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Record meta management for Ember applications.",
   "keywords": [
-    "ember-addon"
+    "ember",
+    "ember-addon",
+    "ember-data",
+    "record-meta"
   ],
-  "repository": "",
+  "repository": "https://github.com/bertdeblock/ember-data-record-meta",
   "license": "MIT",
-  "author": "",
+  "author": "Bert De Block",
   "directories": {
     "doc": "doc",
     "test": "tests"
