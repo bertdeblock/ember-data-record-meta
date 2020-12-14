@@ -2,7 +2,7 @@ import Helper from '@ember/component/helper'
 import { action as bind } from '@ember/object'
 import { addListener, removeListener } from '@ember/object/events'
 import { inject as service } from '@ember/service'
-import { EVENT } from 'ember-data-record-meta/config'
+import { EVENT } from 'ember-data-record-meta/-private/config'
 
 export default class RecordMetaHelper extends Helper {
   /**

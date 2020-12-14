@@ -3,7 +3,7 @@ import { assert } from '@ember/debug'
 import { sendEvent } from '@ember/object/events'
 import Service from '@ember/service'
 import { typeOf } from '@ember/utils'
-import { EVENT } from 'ember-data-record-meta/config'
+import { EVENT } from 'ember-data-record-meta/-private/config'
 
 const NO_RECORD_META_FOUND = null
 
