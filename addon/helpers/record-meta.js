@@ -1,5 +1,5 @@
 import Helper from '@ember/component/helper'
-import { action as bind } from '@ember/object'
+import { action } from '@ember/object'
 import { addListener, removeListener } from '@ember/object/events'
 import { inject as service } from '@ember/service'
 import { EVENT } from 'ember-data-record-meta/-private/config'
@@ -53,7 +53,7 @@ export default class RecordMetaHelper extends Helper {
    * Handlers
    */
 
-  @bind
+  @action
   recordMetaChangedHandler (modelName, recordId) {
     if (modelName === this.modelName && recordId === this.recordId) {
       this.recompute()
