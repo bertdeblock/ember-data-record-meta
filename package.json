@@ -85,8 +85,7 @@
   "lint-staged": {
     "*.js": [
       "prettier-standard",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   }
 }
