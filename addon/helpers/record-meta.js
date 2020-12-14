@@ -1,7 +1,6 @@
 import Helper from '@ember/component/helper'
 import { action as bind } from '@ember/object'
 import { addListener, removeListener } from '@ember/object/events'
-import { join } from '@ember/runloop'
 import { inject as service } from '@ember/service'
 import { EVENT } from 'ember-data-record-meta/config'
 
@@ -57,9 +56,7 @@ export default class RecordMetaHelper extends Helper {
   @bind
   recordMetaChangedHandler (modelName, recordId) {
     if (modelName === this.modelName && recordId === this.recordId) {
-      // NOTE: Using `join` because of:
-      // https://github.com/emberjs/ember.js/issues/14774
-      join(() => this.recompute())
+      this.recompute()
     }
   }
 
