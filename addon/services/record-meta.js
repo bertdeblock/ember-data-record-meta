@@ -8,15 +8,7 @@ import { EVENT } from 'ember-data-record-meta/-private/config'
 const NO_RECORD_META_FOUND = null
 
 export default class RecordMetaService extends Service {
-  /**
-   * State
-   */
-
   recordMetaMap = {}
-
-  /**
-   * Methods
-   */
 
   setRecordMeta (modelName, recordId, recordMeta) {
     assert(

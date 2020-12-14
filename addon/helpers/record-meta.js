@@ -5,23 +5,10 @@ import { inject as service } from '@ember/service'
 import { EVENT } from 'ember-data-record-meta/-private/config'
 
 export default class RecordMetaHelper extends Helper {
-  /**
-   * Services
-   */
-
   @service('record-meta') recordMetaService
 
-  /**
-   * State
-   */
-
-  modelName
-
-  recordId
-
-  /**
-   * Life cycle
-   */
+  modelName = null
+  recordId = null
 
   constructor () {
     super(...arguments)
@@ -49,20 +36,12 @@ export default class RecordMetaHelper extends Helper {
     return this.recordMetaService.getRecordMeta(this.modelName, this.recordId)
   }
 
-  /**
-   * Handlers
-   */
-
   @action
   recordMetaChangedHandler (modelName, recordId) {
     if (modelName === this.modelName && recordId === this.recordId) {
       this.recompute()
     }
   }
-
-  /**
-   * Methods
-   */
 
   cacheRecordProperties (record) {
     this.modelName = record.constructor.modelName
