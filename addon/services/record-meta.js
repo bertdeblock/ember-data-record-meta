@@ -21,8 +21,8 @@ export default class RecordMetaService extends Service {
     )
 
     assert(
-      assertMessage('The "recordId" argument must be a string.'),
-      typeof recordId === 'string'
+      assertMessage('The "recordId" argument must be a string or a number.'),
+      typeof recordId === 'string' || typeof recordId === 'number'
     )
 
     assert(
@@ -53,8 +53,8 @@ export default class RecordMetaService extends Service {
     )
 
     assert(
-      assertMessage('The "recordId" argument must be a string.'),
-      typeof recordId === 'string'
+      assertMessage('The "recordId" argument must be a string or a number.'),
+      typeof recordId === 'string' || typeof recordId === 'number'
     )
 
     const recordMeta = this.recordMetaMap[modelName]?.[recordId]
