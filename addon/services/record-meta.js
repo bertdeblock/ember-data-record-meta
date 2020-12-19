@@ -10,25 +10,9 @@ export default class RecordMetaService extends Service {
   recordMetaMap = {}
 
   setRecordMeta (modelName, recordId, recordMeta) {
-    assert(
-      assertMessage('The "modelName" argument must be a string.'),
-      typeof modelName === 'string'
-    )
-
-    assert(
-      assertMessage(`No model was found for "${modelName}".`),
-      getOwner(this).factoryFor(`model:${modelName}`)
-    )
-
-    assert(
-      assertMessage('The "recordId" argument must be a string or a number.'),
-      typeof recordId === 'string' || typeof recordId === 'number'
-    )
-
-    assert(
-      assertMessage('The "recordMeta" argument must be an object.'),
-      typeof recordMeta === 'object'
-    )
+    assertModelName(modelName, this)
+    assertRecordId(recordId)
+    assertRecordMeta(recordMeta)
 
     this.recordMetaMap = {
       ...this.recordMetaMap,
@@ -42,20 +26,8 @@ export default class RecordMetaService extends Service {
   }
 
   getRecordMeta (modelName, recordId) {
-    assert(
-      assertMessage('The "modelName" argument must be a string.'),
-      typeof modelName === 'string'
-    )
-
-    assert(
-      assertMessage(`No model was found for "${modelName}".`),
-      getOwner(this).factoryFor(`model:${modelName}`)
-    )
-
-    assert(
-      assertMessage('The "recordId" argument must be a string or a number.'),
-      typeof recordId === 'string' || typeof recordId === 'number'
-    )
+    assertModelName(modelName, this)
+    assertRecordId(recordId)
 
     const recordMeta = this.recordMetaMap[modelName]?.[recordId]
 
@@ -84,10 +56,7 @@ export default class RecordMetaService extends Service {
   }
 
   transformRecordMetaKeys (recordMeta, keyTransform) {
-    assert(
-      assertMessage('"keyTransform" must be a function.'),
-      typeof keyTransform === 'function'
-    )
+    assertKeyTransform(keyTransform)
 
     return Object.keys(recordMeta).reduce((recordMetaTransformed, key) => {
       recordMetaTransformed[keyTransform(key)] = recordMeta[key]
@@ -95,6 +64,34 @@ export default class RecordMetaService extends Service {
       return recordMetaTransformed
     }, {})
   }
+}
+
+function assertKeyTransform (keyTransform) {
+  assert(
+    assertMessage('"keyTransform" must be a function.'),
+    typeof keyTransform === 'function'
+  )
+}
+
+function assertModelName (modelName, service) {
+  assert(
+    assertMessage(`No model was found named "${modelName}".`),
+    getOwner(service).factoryFor(`model:${modelName}`)
+  )
+}
+
+function assertRecordId (recordId) {
+  assert(
+    assertMessage('The "recordId" argument must be a string or a number.'),
+    typeof recordId === 'string' || typeof recordId === 'number'
+  )
+}
+
+function assertRecordMeta (recordMeta) {
+  assert(
+    assertMessage('The "recordMeta" argument must be an object.'),
+    typeof recordMeta === 'object'
+  )
 }
 
 function assertMessage (message) {
