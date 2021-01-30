@@ -23,9 +23,9 @@ ember install ember-data-record-meta
 
 import { inject as service } from '@ember/service';
 import { camelize } from '@ember/string';
-import JsonApiSerializer from '@ember-data/serializer/json-api';
+import JSONAPISerializer from '@ember-data/serializer/json-api';
 
-export default class ProjectSerializer extends JsonApiSerializer {
+export default class ProjectSerializer extends JSONAPISerializer {
   @service recordMeta;
 
   normalize() {

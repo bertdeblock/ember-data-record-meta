@@ -1,12 +1,12 @@
 import { camelize } from '@ember/string';
-import JsonApiAdapter from '@ember-data/adapter/json-api';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import Model from '@ember-data/model';
-import JsonApiSerializer from '@ember-data/serializer/json-api';
+import JSONAPISerializer from '@ember-data/serializer/json-api';
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
 class UserModel extends Model {}
-class UserAdapter extends JsonApiAdapter {
+class UserAdapter extends JSONAPIAdapter {
   ajax() {
     return {
       data: [
@@ -107,7 +107,7 @@ module('Unit | Service | record-meta', function (hooks) {
     const storeService = this.owner.lookup('service:store');
     const recordMetaService = this.owner.lookup('service:record-meta');
 
-    class UserSerializer extends JsonApiSerializer {
+    class UserSerializer extends JSONAPISerializer {
       normalize() {
         recordMetaService.normalizeRecordMeta(...arguments);
 
@@ -134,7 +134,7 @@ module('Unit | Service | record-meta', function (hooks) {
     const storeService = this.owner.lookup('service:store');
     const recordMetaService = this.owner.lookup('service:record-meta');
 
-    class UserSerializer extends JsonApiSerializer {
+    class UserSerializer extends JSONAPISerializer {
       normalize() {
         recordMetaService.normalizeRecordMeta(...arguments, {
           keyTransform: camelize,
