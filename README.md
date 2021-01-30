@@ -18,16 +18,6 @@ ember install ember-data-record-meta
 
 ### Normalizing and Storing Record Meta
 
-Using the `normalizeRecordMeta` method, we can normalize and store record meta on the `record-meta` service so we can access it later on.
-
-`normalizeRecordMeta` accepts the same arguments as `normalize`, but also an additional options object.
-
-If the meta keys returned by the API do not have the desired format, you can specify a `keyTransform` function.
-
-`keyTransform` receives a meta key as its sole argument and should return that same meta key in the desired format.
-
-In the example below, we use the `camelize` util from `@ember/string` to camelize all meta keys returned by the API.
-
 ```javascript
 // app/serializers/project.js
 
@@ -47,6 +37,16 @@ export default class ProjectSerializer extends JsonApiSerializer {
   }
 }
 ```
+
+Using the `normalizeRecordMeta` method, we can normalize and store record meta on the `record-meta` service so we can access it later on.
+
+`normalizeRecordMeta` accepts the same arguments as `normalize`, but also an additional options object.
+
+If the meta keys returned by the API do not have the desired format, you can specify a `keyTransform` function.
+
+`keyTransform` receives a meta key as its sole argument and should return that same meta key in the desired format.
+
+In the example above, we use the `camelize` util from `@ember/string` to camelize all meta keys returned by the API.
 
 ### Accessing Record Meta
 
