@@ -28,6 +28,19 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.hbs": [
+      "ember-template-lint --fix"
+    ],
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "ember-cli-babel": "^7.23.1",
     "ember-decorators-polyfill": "^1.1.5"
@@ -79,18 +92,5 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.hbs": [
-      "ember-template-lint --fix"
-    ],
-    "*.js": [
-      "eslint --fix"
-    ]
   }
 }
