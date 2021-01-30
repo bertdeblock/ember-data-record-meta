@@ -3,6 +3,7 @@ import { assert } from '@ember/debug';
 import { sendEvent } from '@ember/object/events';
 import Service from '@ember/service';
 import { EVENT } from 'ember-data-record-meta/-private/config';
+import { assertMessage } from 'ember-data-record-meta/-private/utils';
 
 const NO_RECORD_META_FOUND = null;
 
@@ -92,8 +93,4 @@ function assertRecordMeta(recordMeta) {
     assertMessage('The "recordMeta" argument must be an object.'),
     typeof recordMeta === 'object'
   );
-}
-
-function assertMessage(message) {
-  return `ember-data-record-meta: ${message}`;
 }
