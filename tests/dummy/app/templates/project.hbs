@@ -1,0 +1,13 @@
+{{page-title "Project"}}
+
+<div>
+  User Can Delete: {{this.projectMeta.userCanDelete}}
+</div>
+
+{{#let (record-meta this.project) as |projectMeta|}}
+  {{#if projectMeta.userCanDelete}}
+    <button {{on "click" this.deleteProject}} type="button">
+      Delete Project
+    </button>
+  {{/if}}
+{{/let}}
