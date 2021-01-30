@@ -4,7 +4,7 @@ Record meta management for Ember applications.
 
 ## Compatibility
 
-- Ember.js v3.16 or above
+- Ember.js v3.12 or above (lower probably works as well, but isn't explicitly tested)
 - Ember CLI v2.13 or above
 - Node.js v10 or above
 
