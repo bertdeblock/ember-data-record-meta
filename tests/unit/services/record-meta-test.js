@@ -1,161 +1,161 @@
-import { camelize } from '@ember/string'
-import JsonApiAdapter from '@ember-data/adapter/json-api'
-import Model from '@ember-data/model'
-import JsonApiSerializer from '@ember-data/serializer/json-api'
-import { setupTest } from 'ember-qunit'
-import { module, test } from 'qunit'
+import { camelize } from '@ember/string';
+import JsonApiAdapter from '@ember-data/adapter/json-api';
+import Model from '@ember-data/model';
+import JsonApiSerializer from '@ember-data/serializer/json-api';
+import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 
 class UserModel extends Model {}
 class UserAdapter extends JsonApiAdapter {
-  ajax () {
+  ajax() {
     return {
       data: [
         {
           id: '1',
           meta: {
-            some_key: 'some value'
+            some_key: 'some value',
           },
-          type: 'users'
+          type: 'users',
         },
         {
           id: '2',
           meta: {
-            some_other_key: 'some other value'
+            some_other_key: 'some other value',
           },
-          type: 'users'
-        }
-      ]
-    }
+          type: 'users',
+        },
+      ],
+    };
   }
 }
 
 module('Unit | Service | record-meta', function (hooks) {
-  setupTest(hooks)
+  setupTest(hooks);
 
   test('"setRecordMeta" throws when the provided arguments are invalid', function (assert) {
-    const recordMetaService = this.owner.lookup('service:record-meta')
+    const recordMetaService = this.owner.lookup('service:record-meta');
 
-    this.owner.register('model:user', Model)
-
-    assert.throws(() => {
-      recordMetaService.setRecordMeta()
-    })
+    this.owner.register('model:user', Model);
 
     assert.throws(() => {
-      recordMetaService.setRecordMeta('non-existing-model-name')
-    })
+      recordMetaService.setRecordMeta();
+    });
 
     assert.throws(() => {
-      recordMetaService.setRecordMeta('user')
-    })
+      recordMetaService.setRecordMeta('non-existing-model-name');
+    });
 
     assert.throws(() => {
-      recordMetaService.setRecordMeta('user', '1')
-    })
+      recordMetaService.setRecordMeta('user');
+    });
 
-    recordMetaService.setRecordMeta('user', '1', {})
-  })
+    assert.throws(() => {
+      recordMetaService.setRecordMeta('user', '1');
+    });
+
+    recordMetaService.setRecordMeta('user', '1', {});
+  });
 
   test('"getRecordMeta" throws when the provided arguments are invalid', function (assert) {
-    const recordMetaService = this.owner.lookup('service:record-meta')
+    const recordMetaService = this.owner.lookup('service:record-meta');
 
-    this.owner.register('model:user', Model)
-
-    assert.throws(() => {
-      recordMetaService.getRecordMeta()
-    })
+    this.owner.register('model:user', Model);
 
     assert.throws(() => {
-      recordMetaService.getRecordMeta('non-existing-model-name')
-    })
+      recordMetaService.getRecordMeta();
+    });
 
     assert.throws(() => {
-      recordMetaService.getRecordMeta('user')
-    })
+      recordMetaService.getRecordMeta('non-existing-model-name');
+    });
 
-    recordMetaService.getRecordMeta('user', '1')
-  })
+    assert.throws(() => {
+      recordMetaService.getRecordMeta('user');
+    });
+
+    recordMetaService.getRecordMeta('user', '1');
+  });
 
   test('it sets/gets record meta', function (assert) {
-    const recordMetaService = this.owner.lookup('service:record-meta')
+    const recordMetaService = this.owner.lookup('service:record-meta');
 
-    this.owner.register('model:user', Model)
-    this.owner.register('model:project', Model)
+    this.owner.register('model:user', Model);
+    this.owner.register('model:project', Model);
 
     recordMetaService.setRecordMeta('user', '1', {
-      key: 'value'
-    })
+      key: 'value',
+    });
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '1'), {
-      key: 'value'
-    })
+      key: 'value',
+    });
 
     recordMetaService.setRecordMeta('project', '1', {
-      key: 'value'
-    })
+      key: 'value',
+    });
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '1'), {
-      key: 'value'
-    })
+      key: 'value',
+    });
 
     assert.deepEqual(recordMetaService.getRecordMeta('project', '1'), {
-      key: 'value'
-    })
-  })
+      key: 'value',
+    });
+  });
 
   test('it normalizes record meta', async function (assert) {
-    const storeService = this.owner.lookup('service:store')
-    const recordMetaService = this.owner.lookup('service:record-meta')
+    const storeService = this.owner.lookup('service:store');
+    const recordMetaService = this.owner.lookup('service:record-meta');
 
     class UserSerializer extends JsonApiSerializer {
-      normalize () {
-        recordMetaService.normalizeRecordMeta(...arguments)
+      normalize() {
+        recordMetaService.normalizeRecordMeta(...arguments);
 
-        return super.normalize(...arguments)
+        return super.normalize(...arguments);
       }
     }
 
-    this.owner.register('model:user', UserModel)
-    this.owner.register('adapter:user', UserAdapter)
-    this.owner.register('serializer:user', UserSerializer)
+    this.owner.register('model:user', UserModel);
+    this.owner.register('adapter:user', UserAdapter);
+    this.owner.register('serializer:user', UserSerializer);
 
-    await storeService.findAll('user')
+    await storeService.findAll('user');
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '1'), {
-      some_key: 'some value'
-    })
+      some_key: 'some value',
+    });
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '2'), {
-      some_other_key: 'some other value'
-    })
-  })
+      some_other_key: 'some other value',
+    });
+  });
 
   test('it normalizes record meta using a "keyTransform" function', async function (assert) {
-    const storeService = this.owner.lookup('service:store')
-    const recordMetaService = this.owner.lookup('service:record-meta')
+    const storeService = this.owner.lookup('service:store');
+    const recordMetaService = this.owner.lookup('service:record-meta');
 
     class UserSerializer extends JsonApiSerializer {
-      normalize () {
+      normalize() {
         recordMetaService.normalizeRecordMeta(...arguments, {
-          keyTransform: camelize
-        })
+          keyTransform: camelize,
+        });
 
-        return super.normalize(...arguments)
+        return super.normalize(...arguments);
       }
     }
 
-    this.owner.register('model:user', UserModel)
-    this.owner.register('adapter:user', UserAdapter)
-    this.owner.register('serializer:user', UserSerializer)
+    this.owner.register('model:user', UserModel);
+    this.owner.register('adapter:user', UserAdapter);
+    this.owner.register('serializer:user', UserSerializer);
 
-    await storeService.findAll('user')
+    await storeService.findAll('user');
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '1'), {
-      someKey: 'some value'
-    })
+      someKey: 'some value',
+    });
 
     assert.deepEqual(recordMetaService.getRecordMeta('user', '2'), {
-      someOtherKey: 'some other value'
-    })
-  })
-})
+      someOtherKey: 'some other value',
+    });
+  });
+});
