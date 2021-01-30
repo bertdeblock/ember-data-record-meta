@@ -85,6 +85,8 @@ export default class ProjectController extends Controller {
 }
 ```
 
+💡 Working versions of these code examples can be found in [this addon's dummy app](./tests/dummy/app/).
+
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
