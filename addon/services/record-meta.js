@@ -46,7 +46,7 @@ export default class RecordMetaService extends Service {
     }
 
     if (keyTransform) {
-      recordMeta = this.transformRecordMetaKeys(recordMeta, keyTransform);
+      recordMeta = transformRecordMetaKeys(recordMeta, keyTransform);
     }
 
     const modelName = modelClass.modelName;
@@ -54,16 +54,16 @@ export default class RecordMetaService extends Service {
 
     this.setRecordMeta(modelName, recordId, recordMeta);
   }
+}
 
-  transformRecordMetaKeys(recordMeta, keyTransform) {
-    assertKeyTransform(keyTransform);
+function transformRecordMetaKeys(recordMeta, keyTransform) {
+  assertKeyTransform(keyTransform);
 
-    return Object.keys(recordMeta).reduce((recordMetaTransformed, key) => {
-      recordMetaTransformed[keyTransform(key)] = recordMeta[key];
+  return Object.keys(recordMeta).reduce((recordMetaTransformed, key) => {
+    recordMetaTransformed[keyTransform(key)] = recordMeta[key];
 
-      return recordMetaTransformed;
-    }, {});
-  }
+    return recordMetaTransformed;
+  }, {});
 }
 
 function assertKeyTransform(keyTransform) {
