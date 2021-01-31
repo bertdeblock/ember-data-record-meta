@@ -1,5 +1,10 @@
 # Ember Data Record Meta
 
+[![NPM Version](https://badge.fury.io/js/ember-data-record-meta.svg)](https://badge.fury.io/js/ember-data-record-meta)
+[![Build Status](https://travis-ci.com/ember-data-record-meta.svg?branch=master)](https://travis-ci.com/ember-data-record-meta)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 Record meta management for Ember applications.
 
 ## Compatibility
