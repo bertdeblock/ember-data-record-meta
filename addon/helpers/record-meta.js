@@ -1,74 +1,64 @@
-import Helper from '@ember/component/helper'
-import { action as bind } from '@ember/object'
-import { addListener, removeListener } from '@ember/object/events'
-import { join } from '@ember/runloop'
-import { inject as service } from '@ember/service'
-import { EVENT } from 'ember-data-record-meta/config'
+import Helper from '@ember/component/helper';
+import { assert } from '@ember/debug';
+import { action } from '@ember/object';
+import { addListener, removeListener } from '@ember/object/events';
+import { inject as service } from '@ember/service';
+import Model from '@ember-data/model';
+import { EVENT } from 'ember-data-record-meta/-private/config';
+import { assertMessage } from 'ember-data-record-meta/-private/utils';
 
 export default class RecordMetaHelper extends Helper {
-  /**
-   * Services
-   */
+  @service('record-meta') recordMetaService;
 
-  @service('record-meta') recordMetaService
+  modelName = null;
+  recordId = null;
 
-  /**
-   * State
-   */
-
-  modelName
-
-  recordId
-
-  /**
-   * Life cycle
-   */
-
-  constructor () {
-    super(...arguments)
+  constructor() {
+    super(...arguments);
 
     addListener(
       this.recordMetaService,
       EVENT.RECORD_META_CHANGED,
       this.recordMetaChangedHandler
-    )
+    );
   }
 
-  willDestroy () {
-    super.willDestroy(...arguments)
+  willDestroy() {
+    super.willDestroy(...arguments);
 
     removeListener(
       this.recordMetaService,
       EVENT.RECORD_META_CHANGED,
       this.recordMetaChangedHandler
-    )
+    );
   }
 
-  compute ([record]) {
-    this.cacheRecordProperties(record)
+  compute([record]) {
+    assertRecord(record);
 
-    return this.recordMetaService.getRecordMeta(this.modelName, this.recordId)
+    this.cacheRecordProperties(record);
+
+    return this.recordMetaService.getRecordMeta(this.modelName, this.recordId);
   }
 
-  /**
-   * Handlers
-   */
-
-  @bind
-  recordMetaChangedHandler (modelName, recordId) {
+  @action
+  recordMetaChangedHandler(modelName, recordId) {
     if (modelName === this.modelName && recordId === this.recordId) {
-      // NOTE: Using `join` because of:
-      // https://github.com/emberjs/ember.js/issues/14774
-      join(() => this.recompute())
+      this.recompute();
     }
   }
 
-  /**
-   * Methods
-   */
-
-  cacheRecordProperties (record) {
-    this.modelName = record.constructor.modelName
-    this.recordId = record.id
+  cacheRecordProperties(record) {
+    this.modelName = record.constructor.modelName;
+    this.recordId = record.id;
   }
+}
+
+function assertRecord(record) {
+  assert(
+    assertMessage(
+      `Record must be an instance of "@ember-data/model". "${record}" provided.`
+    ),
+    record instanceof Model
+  );
 }

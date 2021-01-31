@@ -2,7 +2,7 @@
 
 ## Installation
 
-* `git clone <repository-url>`
+* `git clone git@github.com:bertdeblock/ember-data-record-meta.git`
 * `cd ember-data-record-meta`
 * `yarn install`
 
