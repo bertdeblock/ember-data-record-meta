@@ -5,8 +5,6 @@ import Service from '@ember/service';
 import { EVENT } from 'ember-data-record-meta/-private/config';
 import { assertMessage } from 'ember-data-record-meta/-private/utils';
 
-const NO_RECORD_META_FOUND = null;
-
 export default class RecordMetaService extends Service {
   recordMetaMap = {};
 
@@ -36,7 +34,7 @@ export default class RecordMetaService extends Service {
       return recordMeta;
     }
 
-    return NO_RECORD_META_FOUND;
+    return null;
   }
 
   normalizeRecordMeta(modelClass, payload, { keyTransform } = {}) {
