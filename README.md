@@ -1,7 +1,7 @@
 # Ember Data Record Meta
 
+[![CI](https://github.com/bertdeblock/ember-data-record-meta/workflows/CI/badge.svg)](https://github.com/bertdeblock/ember-data-record-meta/actions?query=workflow%3ACI)
 [![NPM Version](https://badge.fury.io/js/ember-data-record-meta.svg)](https://badge.fury.io/js/ember-data-record-meta)
-[![Build Status](https://travis-ci.com/bertdeblock/ember-data-record-meta.svg?branch=main)](https://travis-ci.com/bertdeblock/ember-data-record-meta)
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
